@@ -142,5 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc27ac3f49d4ef40bbcd8ddf24b4cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelExitDoor
-  nextLevelName: Default
+  nextLevelName: Level 1
   screenFader: {fileID: 0}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -89,8 +90,10 @@ public class PlayerInputController : MonoBehaviour
             transform.position = spawnPoint.position;
             rb.linearVelocity = Vector2.zero;
         }
+        
         hasKey = false; // Reset key on death
         ResetTraps();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 

@@ -15,6 +15,7 @@ public class ScreenFader : MonoBehaviour
 
     public void FadeToNextLevel(string sceneName)
     {
+        gameObject.SetActive(true);
         StartCoroutine(FadeOut(sceneName));
     }
     // transitions for fading in and out
