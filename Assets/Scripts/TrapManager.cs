@@ -13,7 +13,7 @@ public class TrapManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            spawners.AddRange(FindObjectsOfType<TrapSpawner>());
+            spawners.AddRange(Object.FindObjectsByType<TrapSpawner>(FindObjectsSortMode.None));
         }
         else Destroy(gameObject);
     }

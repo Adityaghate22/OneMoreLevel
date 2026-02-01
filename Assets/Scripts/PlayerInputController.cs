@@ -100,7 +100,7 @@ public class PlayerInputController : MonoBehaviour
     //reset traps on death
     void ResetTraps()
     {
-        TrapSpawner[] spawners = FindObjectsOfType<TrapSpawner>();
+        TrapSpawner[] spawners = Object.FindObjectsByType<TrapSpawner>(FindObjectsSortMode.None);
         foreach (TrapSpawner spawner in spawners)
         {
             spawner.Reset();
