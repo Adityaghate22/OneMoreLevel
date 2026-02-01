@@ -1,31 +1,59 @@
 ﻿using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class PatrolPlatform : MonoBehaviour
 {
+    [Header("References")]
+    public Rigidbody2D rb;
     public Transform pointA;
     public Transform pointB;
-    public float speed = 5f;
 
-    private Vector3 targetPosition;
+    [Header("Movement")]
+    public float speed = 2f;
+    public float reachDistance = 0.05f;
+
+    // internal state (THIS is what you were missing)
+    private Vector2 target;
+    private bool goingToB = true;
+
+    void Awake()
+    {
+        // safety
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+    }
 
     void Start()
     {
-      targetPosition = pointB.position;
+        // start at A, move to B
+        rb.position = pointA.position;
+        target = pointB.position;
+        goingToB = true;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-            if (Vector2.Distance(transform.position,pointA.position) <0.1f)
-            {   Debug.Log("reached point A");
-                targetPosition = pointB.position;
-            }
-            if (Vector2.Distance(transform.position, pointB.position) < 0.1f)
-            {
-                Debug.Log("reached point B");
-               targetPosition = pointA.position;
-            }
-            
-             transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        // move platform
+        rb.MovePosition(
+            Vector2.MoveTowards(
+                rb.position,
+                target,
+                speed * Time.fixedDeltaTime
+            )
+        );
+
+        // switch direction ONCE when reached
+        if (goingToB && (rb.position - (Vector2)pointB.position).sqrMagnitude <= reachDistance * reachDistance)
+        {
+            goingToB = false;
+            target = pointA.position;
+        }
+        else if (!goingToB && (rb.position - (Vector2)pointA.position).sqrMagnitude <= reachDistance * reachDistance)
+        {
+            goingToB = true;
+            target = pointB.position;
+        }
     }
-    
 }
