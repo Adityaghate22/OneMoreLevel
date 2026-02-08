@@ -11,6 +11,7 @@ public class Collectibles : MonoBehaviour
         {
             if (player != null)
             {
+           
                 player.hasKey = true;
                 Debug.Log("Collectible collected!");
                 Destroy(gameObject);

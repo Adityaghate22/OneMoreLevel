@@ -7,6 +7,7 @@ TagManager:
   - Hazard
   - Goal
   - MovingGround
+  - Audio
   layers:
   - Default
   - TransparentFX

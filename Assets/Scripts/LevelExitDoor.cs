@@ -6,6 +6,7 @@ public class LevelExitDoor : MonoBehaviour
    
     public string nextLevelName;
     public ScreenFader screenFader;
+   
     private void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -17,8 +18,9 @@ public class LevelExitDoor : MonoBehaviour
                 // Add logic for reaching the goal, e.g., load next level
                 Debug.Log("Goal reached!");
                 screenFader.FadeToNextLevel(nextLevelName);
-       
-            }
+                AudioManager.instance.sfxSource.PlayOneShot(AudioManager.instance.Door);
+
+        }
 
         else
         {

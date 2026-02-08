@@ -8,6 +8,7 @@ public class PlayerInputController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpforce = 15f;
     private Rigidbody2D rb;
+   
     private bool isGrounded;
     public Transform groundCheck;
     public float groundxsize;
@@ -17,6 +18,8 @@ public class PlayerInputController : MonoBehaviour
     public bool hasKey = false;
     public Transform spawnPoint;
 
+
+   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,9 +56,10 @@ public class PlayerInputController : MonoBehaviour
     //jump logic
     private void Jump()
     {
-
+        
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            AudioManager.instance.sfxSource.PlayOneShot(AudioManager.instance.jump);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpforce);
         }
         if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0)
@@ -75,8 +79,10 @@ public class PlayerInputController : MonoBehaviour
     // traps and hazard logic
     void OnTriggerEnter2D(Collider2D other)
     {
+      
         if (other.CompareTag("Hazard"))
         {
+         
             Die();
         }
     }
@@ -87,6 +93,7 @@ public class PlayerInputController : MonoBehaviour
     {
         if (spawnPoint != null)
         {
+            AudioManager.instance.sfxSource.PlayOneShot(AudioManager.instance.die);
             transform.position = spawnPoint.position;
             rb.linearVelocity = Vector2.zero;
         }
